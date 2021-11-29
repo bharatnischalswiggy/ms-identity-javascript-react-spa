@@ -16,7 +16,7 @@ const Iframe = () => {
         // .then(res => {
         //     console.log(res.data);
         // })
-        fetch(`https://localhost:8088/superset/welcome#${token}`, {
+        fetch(`http://localhost:8088/superset/welcome#${token}`, {
             method: 'GET',
             mode: 'no-cors',
             headers: {
