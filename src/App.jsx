@@ -6,6 +6,7 @@ import { ProfileData } from "./components/ProfileData";
 import { callMsGraph } from "./graph";
 import Button from "react-bootstrap/Button";
 import "./styles/App.css";
+import Iframe from "./components/Iframe";
 
 /**
  * Renders information about the signed-in user or a button to retrieve data about the user
@@ -20,7 +21,13 @@ const ProfileContent = () => {
             ...loginRequest,
             account: accounts[0]
         }).then((response) => {
-            callMsGraph(response.accessToken).then(response => setGraphData(response));
+            console.log("🚀 ~ file: App.jsx ~ line 23 ~ RequestProfileData ~ response", response.accessToken);
+            localStorage.setItem('token', response.accessToken);
+            callMsGraph(response.accessToken).then(response => {
+                setGraphData(response)
+                console.log("🚀 ~ file: App.jsx ~ line 26 ~ callMsGraph ~ response", response)
+                
+            });
         });
     }
 
@@ -44,6 +51,9 @@ const MainContent = () => {
         <div className="App">
             <AuthenticatedTemplate>
                 <ProfileContent />
+                <div style={{ marginTop: '20px'}}>
+                    <Iframe />
+                </div>
             </AuthenticatedTemplate>
 
             <UnauthenticatedTemplate>
